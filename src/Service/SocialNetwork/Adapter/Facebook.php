@@ -45,17 +45,17 @@ class Facebook extends Adapter
         $result = false;
 
         if (isset($_GET['code'])) {
-            $params = array(
+            $params = [
                 'client_id' => $this->clientId,
                 'redirect_uri' => $this->redirectUri,
                 'client_secret' => $this->clientSecret,
                 'code' => $_GET['code']
-            );
+            ];
 
             parse_str($this->get('https://graph.facebook.com/oauth/access_token', $params, false), $tokenInfo);
 
             if (count($tokenInfo) > 0 && isset($tokenInfo['access_token'])) {
-                $params = array('access_token' => $tokenInfo['access_token']);
+                $params = ['access_token' => $tokenInfo['access_token']];
                 $userInfo = $this->get('https://graph.facebook.com/me', $params);
 
                 if (isset($userInfo['id'])) {
@@ -75,14 +75,14 @@ class Facebook extends Adapter
      */
     public function prepareAuthParams()
     {
-        return array(
+        return [
             'auth_url' => 'https://www.facebook.com/dialog/oauth',
-            'auth_params' => array(
+            'auth_params' => [
                 'client_id' => $this->clientId,
                 'redirect_uri' => $this->redirectUri,
                 'response_type' => 'code',
                 'scope' => 'email,user_birthday'
-            )
-        );
+            ]
+        ];
     }
 }
