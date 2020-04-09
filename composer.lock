@@ -223,16 +223,16 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v4.1.5",
+            "version": "v4.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "985ebee0d4cadaadef4d81aaccf0018443cf2560"
+                "reference": "919a245e0642afa353a333d8bf3352320af85969"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/985ebee0d4cadaadef4d81aaccf0018443cf2560",
-                "reference": "985ebee0d4cadaadef4d81aaccf0018443cf2560",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/919a245e0642afa353a333d8bf3352320af85969",
+                "reference": "919a245e0642afa353a333d8bf3352320af85969",
                 "shasum": ""
             },
             "require": {
@@ -290,7 +290,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2018-09-21T12:49:42+00:00"
+            "time": "2019-04-16T11:21:55+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -457,7 +457,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-11-11T12:54:47+00:00"
+            "time": "2018-09-30T03:47:35+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -661,7 +661,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-03-09T19:04:49+00:00"
+            "time": "2018-08-06T14:22:27+00:00"
         },
         {
             "name": "symfony/routing",
