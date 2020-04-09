@@ -7,9 +7,10 @@ use Model\Entity\Product;
  * @var Product[] $productList
  * @var string $error
  * @var Closure $path
+ * @var $adapters \Service\SocialNetwork\Adapter\Adapter
  */
 
-$body = function () use ($path, $error) {
+$body = function () use ($path, $error, $adapters) {
 ?>
     <form action="<?= $path('user_authentication') ?>" method="post">
         Логин: <input name="login" type="text" /><br />
@@ -44,6 +45,12 @@ $body = function () use ($path, $error) {
             </tr>
         </tbody>
     </table>
+
+    <div>
+        <?php foreach ($adapters as $title => $adapter) : ?>
+            <p><a href="<?= $adapter->getAuthUrl() ?>">Вход через  <?= ucfirst($title) ?></a></p>
+        <?php endforeach; ?>
+    </div>
 <?php
 };
 
