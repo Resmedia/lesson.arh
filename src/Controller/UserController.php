@@ -12,6 +12,31 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends BaseController
 {
+    // Need put it main config
+    private $adapterConfigs = [
+        'Google' => [
+            'client_id' => '',
+            'client_secret' => '',
+            'redirect_uri' => 'http://localhost/auth?provider=google'
+        ],
+        'Facebook' => [
+            'client_id' => '',
+            'client_secret' => '',
+            'redirect_uri' => 'http://localhost/auth?provider=facebook'
+        ]
+    ];
+
+    public function getAdapters()
+    {
+        $adapters = [];
+        foreach ($this->adapterConfigs as $adapter => $settings) {
+            $class = 'Service\SocialNetwork\Adapter\\' . $adapter;
+            $adapters[$adapter] = new $class($settings);
+        }
+
+        return $adapters;
+    }
+
     /**
      * Производим аутентификацию и авторизацию
      * @param Request $request
@@ -38,7 +63,10 @@ class UserController extends BaseController
 
         return $this->render(
             'user/authentication.html.php',
-            ['error' => $error ?? '']
+            [
+                'error' => $error ?? '',
+                'adapters' => $this->getAdapters()
+            ]
         );
     }
 
