@@ -7,6 +7,7 @@ namespace Service\Product;
 use Model;
 use Model\Entity\Product;
 use Model\Repository\ProductRepository;
+use Service\Filter\Filter;
 
 class ProductService
 {
@@ -26,13 +27,13 @@ class ProductService
      * @param string $sortType
      * @return Product[]
      */
-    public function getAll(string $sortType): array
+    public function getAll(Filter $filter = NULL): array
     {
         $productList = $this->getProductRepository()->fetchAll();
 
-        // Применить паттерн Стратегия
-        // $sortType === 'price'; // Сортировка по цене
-        // $sortType === 'name'; // Сортировка по имени
+        if ($filter) {
+            $productList = $this->filter($productList, $filter);
+        }
 
         return $productList;
     }
@@ -44,5 +45,12 @@ class ProductService
     protected function getProductRepository(): ProductRepository
     {
         return new ProductRepository();
+    }
+
+    public function filter(array $productList, $filter): array
+    {
+        usort($productList, [$filter, 'filter']);
+
+        return $productList;
     }
 }

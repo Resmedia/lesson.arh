@@ -44,7 +44,7 @@ class Registry
 
     /**
      * Рендерим страницу по названию роута
-     * @param string name
+     * @param string $name
      * @param array $parameters
      * @return string
      * @throws Exception

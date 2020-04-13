@@ -16,6 +16,7 @@ $body = function () use ($productList, $path) {
             <td colspan="3" align="left">Сортировать по:
                 <a href="<?= $path('product_list') ?>?sort=price">Цене</a>
                 <a href="<?= $path('product_list') ?>?sort=name">Названию</a>
+                <a href="<?= $path('product_list') ?>">Сбросить</a>
             </td>
         </tr>
 
