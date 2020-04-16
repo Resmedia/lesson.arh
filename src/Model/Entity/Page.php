@@ -1,14 +1,20 @@
 <?php
-
-use Model\Entity\Product;
-
 /**
- * @var Closure $renderLayout 
- * @var Product[] $productList
+ * Created by PhpStorm.
+ * User: rogozhuk
+ * Date: 16.04.20
+ * Time: 12:22
  */
 
-$body = function () {
-    echo <<<EOL
+namespace Model\Entity;
+
+
+class Page
+{
+    // This we need to take from BD trough Query
+    public static $body = [
+        'title' => 'Главная страница',
+        'description' => '
 <p>Добро пожаловать в наш интернет-магазин on-line курсов!</p>
 <p align="left">Большая часть работы программистов связана с написанием исходного кода, тестированием и отладкой программ на одном
 из языков программирования. Исходные тексты и исполняемые файлы программ являются объектами авторского права и являются
@@ -29,14 +35,8 @@ $body = function () {
 ассемблера получаются алгоритмически простейшими трансляторами).</p>
 <p align="left">В некоторых языках вместо машинного кода генерируется интерпретируемый двоичный код «виртуальной машины», также
 называемый байт-кодом (byte-code). Такой подход применяется в Forth, некоторых реализациях Lisp, Java, Perl, Python,
-языках для .NET Framework.</p>
-EOL;
-};
+языках для .NET Framework.</p>'
+    ];
 
-$renderLayout(
-    'main_template.html.php',
-    [
-        'title' => 'Главная страница',
-        'body' => $body,
-    ]
-);
+
+}

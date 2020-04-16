@@ -34,7 +34,7 @@ class OrderController extends BaseController
         $isLogged = (new Security($request->getSession()))->isLogged();
 
         return $this->render(
-            'order/info.html.php',
+            'order/info',
             [
                 'productList' => $productList,
                 'isLogged' => $isLogged,
@@ -61,6 +61,6 @@ class OrderController extends BaseController
 
         (new Basket($request->getSession()))->checkout($facade);
 
-        return $this->render('order/checkout.html.php');
+        return $this->render('order/checkout');
     }
 }

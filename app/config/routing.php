@@ -11,7 +11,7 @@ $routes = new RouteCollection();
 
 $routes->add(
     'index',
-    new Route('/', ['_controller' => [MainController::class, 'indexAction']])
+    new Route('/', ['_controller' => [MainController::class, 'actionIndex']])
 );
 
 $routes->add(
