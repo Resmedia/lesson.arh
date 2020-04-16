@@ -31,13 +31,13 @@ class ProductController extends BaseController
         $productInfo = (new ProductService())->getInfo((int)$id);
 
         if ($productInfo === null) {
-            return $this->render('error404.html.php');
+            return $this->render('page/error404.php');
         }
 
         $isInBasket = $basket->isProductInBasket($productInfo->getId());
 
         return $this->render(
-            'product/info.html.php',
+            'product/view',
             ['productInfo' => $productInfo, 'isInBasket' => $isInBasket]
         );
     }
@@ -59,7 +59,7 @@ class ProductController extends BaseController
         }
 
         return $this->render(
-            'product/list.html.php',
+            'product/index',
             [
                 'productList' => $productList,
             ]

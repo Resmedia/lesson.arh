@@ -9,7 +9,6 @@ use Model\Entity\Product;
  * @var Closure $path
  */
 
-$body = function () use ($productList, $isLogged, $path) {
 ?>
     <form method="post">
         <table cellpadding="10">
@@ -18,13 +17,3 @@ $body = function () use ($productList, $isLogged, $path) {
             </tr>
         </table>
     </form>
-<?php
-};
-
-$renderLayout(
-    'main_template.html.php',
-    [
-        'title' => 'Покупка',
-        'body' => $body,
-    ]
-);

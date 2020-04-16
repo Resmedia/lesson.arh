@@ -30,7 +30,11 @@
                                 <?php endif; ?>
                             </table>
                         </td>
-                        <td align="center"><br/><?= isset($body) && $body instanceof Closure ? $body() : '' ?><br/></td>
+                        <td align="center">
+                            <table cellspacing="10">
+                                <td><?= isset($content) ? $content : '' ?></td>
+                            </table>
+                        </td>
                     </tr>
                 </table>
             </td>

@@ -18,10 +18,17 @@ abstract class BaseController
      * @param array $parameters
      * @return Response
      */
-    protected function render(string $view, array $parameters = []): Response
+    protected function render($view, $parameters = [])
+    {
+        return $this->renderTemplate('layout/main', [
+            'content' => $this->renderTemplate($view, $parameters)
+        ]);
+    }
+
+    protected function renderTemplate(string $view, array $parameters = []): Response
     {
         $rootViewPath = Registry::getDataConfig('view.directory');
-        $viewPath = $rootViewPath . $view;
+        $viewPath = $rootViewPath . $view . '.php';
 
         if (!file_exists($viewPath)) {
             return new Response('There is no view file ' . $view, Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -31,16 +38,17 @@ abstract class BaseController
             return Registry::getRoute($name, $parameters);
         };
 
-        $renderLayout = function (string $view, array $parameters = []) use ($rootViewPath, $path): void {
+        function (string $view, array $parameters = []) use ($rootViewPath, $path): void {
             $parameters['isAuth'] = (new Security(new Session()))->isLogged();
             extract($parameters, EXTR_SKIP);
+
             try {
-                include_once str_replace('/', DIRECTORY_SEPARATOR, $rootViewPath . $view);
+                include $rootViewPath . $view;
             } catch (\Throwable $e) {
                 if (Registry::getDataConfig('environment') === 'dev') {
                     $error = $e->getMessage();
                     $trace = $e->getTraceAsString();
-                    include_once str_replace('/', DIRECTORY_SEPARATOR, $rootViewPath . 'error500.html.php');
+                    include str_replace('/', DIRECTORY_SEPARATOR, $rootViewPath . 'page/error500.php');
                 } else {
                     throw $e;
                 }
@@ -49,10 +57,12 @@ abstract class BaseController
 
         ob_start();
 
-        extract($parameters, EXTR_SKIP);
-        include_once $viewPath;
+        extract($parameters, EXTR_REFS);
+        include $viewPath;
 
-        return new Response(ob_get_clean());
+        $response = new Response(ob_get_clean());
+
+        return $response;
     }
 
     /**

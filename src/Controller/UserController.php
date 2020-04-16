@@ -54,7 +54,7 @@ class UserController extends BaseController
 
             if ($isAuthenticationSuccess) {
                 return $this->render(
-                    'user/authentication_success.html.php',
+                    'user/authentication_success',
                     ['user' => $user->getUser()]
                 );
             }
@@ -62,7 +62,7 @@ class UserController extends BaseController
         }
 
         return $this->render(
-            'user/authentication.html.php',
+            'user/authentication',
             [
                 'error' => $error ?? '',
                 'adapters' => $this->getAdapters()
