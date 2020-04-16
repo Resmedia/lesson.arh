@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Controller;
 
 use Framework\BaseController;
+use Service\Filter\NameFilter;
+use Service\Filter\PriceFilter;
 use Service\Order\Basket;
 use Service\Product\ProductService;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,13 +49,20 @@ class ProductController extends BaseController
      */
     public function listAction(Request $request): Response
     {
-        $productList = (new ProductService())->getAll(
-            $request->query->get('sort', '')
-        );
+        $sort = $request->query->get('sort');
+        if ($sort && $sort == 'price') {
+            $productList = (new ProductService())->getAll(new PriceFilter());
+        }else if ($sort && $sort == 'name') {
+            $productList = (new ProductService())->getAll(new NameFilter());
+        } else {
+            $productList = (new ProductService())->getAll();
+        }
 
         return $this->render(
             'product/list.html.php',
-            ['productList' => $productList]
+            [
+                'productList' => $productList,
+            ]
         );
     }
 }
